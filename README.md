@@ -1,2 +1,2 @@
 # TO-DO-App
-TO-DO app repo
+Initial idea is to create a simple to-do app using MERN stack.
