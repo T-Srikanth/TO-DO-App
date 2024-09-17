@@ -1,0 +1,30 @@
+.todoList {
+  max-width: 600px;
+  margin: 0 auto;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.todoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+ul {
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+}

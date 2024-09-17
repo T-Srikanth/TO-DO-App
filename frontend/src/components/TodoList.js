@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styles from './TodoList.module.css';
 
 const port = 5001;
 function TodoList() {
@@ -37,17 +38,19 @@ function TodoList() {
   };
 
   return (
-    <div>
+    <div className={styles.todoList}>
       <h1>To-Do List</h1>
-      <input 
-        type="text" 
-        value={newTodo} 
-        onChange={(e) => setNewTodo(e.target.value)}
-      />
-      <button onClick={addTodo}>Add Todo</button>
+      <div className={styles.inputContainer}>
+        <input 
+          type="text" 
+          value={newTodo} 
+          onChange={(e) => setNewTodo(e.target.value)}
+        />
+        <button onClick={addTodo}>Add Todo</button>
+      </div>
       <ul>
         {todos.map(todo => (
-          <li key={todo._id}>{todo.text}<button onClick={() => deleteTodo(todo._id)}>Delete</button></li>
+          <li key={todo._id} className={styles.todoItem}>{todo.text}<button onClick={() => deleteTodo(todo._id)}>Delete</button></li>
         ))}
       </ul>
     </div>
