@@ -16,8 +16,6 @@ router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// Add routes for updating and deleting todos
-// add delete route here
 router.route('/delete/:id').delete((req, res) => {
   Todo.findByIdAndDelete(req.params.id)
     .then(() => res.json('Todo deleted.'))

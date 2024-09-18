@@ -3,22 +3,24 @@ import axios from 'axios';
 import styles from './TodoList.module.css';
 
 const port = 5001;
+const hostname = window.location.hostname;
+
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:${port}/todos`)
+    axios.get(`http://${hostname}:${port}/todos`)
       .then(response => setTodos(response.data))
       .catch(error => console.log(error));
   }, []);
 
   const addTodo = () => {
-    axios.post(`http://localhost:${port}/todos/add`, { text: newTodo })
+    axios.post(`http://${hostname}:${port}/todos/add`, { text: newTodo })
       .then(() => {
         setNewTodo('');
         // Refresh the todo list
-        axios.get(`http://localhost:${port}/todos`)
+        axios.get(`http://${hostname}:${port}/todos`)
           .then(response => setTodos(response.data))
           .catch(error => console.log(error));
       })
@@ -26,11 +28,11 @@ function TodoList() {
   };
   const deleteTodo = (id) => {
     console.log(`Deleting todo with id ${id}`);
-    axios.delete(`http://localhost:${port}/todos/delete/${id}`)
+    axios.delete(`http://${hostname}:${port}/todos/delete/${id}`)
       .then((response) => {
         console.log(`Todo deleted successfully: ${response.data}`);
         // Refresh the todo list
-        axios.get(`http://localhost:${port}/todos`)
+        axios.get(`http://${hostname}:${port}/todos`)
           .then((response) => setTodos(response.data))
           .catch((error) => console.log(error));
       })
