@@ -15,9 +15,9 @@ Frontend will be running on port 3000; backend on port 5001 on the same AWS ubun
         - get **connection url** that looks like this `mongodb+srv://<username>:<db_password>@cluster0.ycitk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
 
 ## On the server(AWS instance):
-1. clone [git repo](https://github.com/T-Srikanth/TO-DO-App.git) using git clone command
+1. clone [git repo](https://github.com/T-Srikanth/TO-DO-App.git) using git clone command.
 2. change directory: `cd TO-DO-App/backend` 
-3. edit `~/TO-DO-App/backend/.env` file with mongoDB database **connection url**
+3. edit `~/TO-DO-App/backend/.env` file with mongoDB database **connection url**.
 4. change directory: `cd ~/TO-DO-App/frontend`
 5. to install dependencies: `npm install` 
 6. change directory: `cd ~/TO-DO-App`
@@ -26,3 +26,13 @@ Frontend will be running on port 3000; backend on port 5001 on the same AWS ubun
 9. start the app: `./start_app.sh` 
 10. access app using this url `http://<instance_public_ip>:3000`
 `start_app.sh` starts both the frontend and backend.
+
+## Run the application on containers:
+1. Install docker [Installation Guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
+2. Install docker compose [Installation Guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04)
+3. Clone [git repo](https://github.com/T-Srikanth/TO-DO-App.git) using git clone command.
+4. There will separate `Dockerfile`s for backend and frontend in their respective directories.
+5. There will be a `docker-compose.yml` file that is used to manage multiple containers.
+6. Update the ATLAS_URL in the backend `Dockerfile`
+7. To start the app run `MONGO_USERNAME=myusername MONGO_PASSWORD=mypassword docker compose up --build` with username and password as arguments
+8. Access app using this url `http://<instance_public_ip>:3000`
