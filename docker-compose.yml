@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+
+  backend:
+    build:
+      context: ./backend
+      args:
+        MONGO_USERNAME: ${MONGO_USERNAME}
+        MONGO_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - "5001:5001"
+    environment:
+      - ATLAS_URL=mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@cluster0.ycitk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    depends_on:
+      - frontend
