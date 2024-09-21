@@ -31,7 +31,7 @@ Frontend will be running on port 3000; backend on port 5001 on the same AWS ubun
 1. Install docker [Installation Guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
 2. Install docker compose [Installation Guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04)
 3. Clone [git repo](https://github.com/T-Srikanth/TO-DO-App.git) using git clone command.
-4. There will separate `Dockerfile`s for backend and frontend in their respective directories.
+4. There will be separate `Dockerfile`s for backend and frontend in their respective directories.
 5. There will be a `docker-compose.yml` file that is used to manage multiple containers.
 6. Update the ATLAS_URL in the backend `Dockerfile`
 7. To start the app run `MONGO_USERNAME=myusername MONGO_PASSWORD=mypassword docker compose up --build` with username and password as arguments
