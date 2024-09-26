@@ -54,8 +54,8 @@ jobs:
           docker run -d --name backend-container \
            -p 5001:5001 \ 
            -e ATLAS_URL="mongodb+srv://${{ secrets.MONGO_USERNAME }}:${{ secrets.MONGO_PASSWORD }}@cluster0.ycitk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" \
-           ${{ secrets.DOCKERHUB_USERNAME }}/mern-backend:latest
-          docker run -d --name frontend-container -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/mern-frontend:latest
+           ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
+          docker run -d --name frontend-container -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
 
           # Optional: Remove unused images
-          docker image prune -f
+          docker image prune -f        
