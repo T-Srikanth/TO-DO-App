@@ -1,0 +1,61 @@
+name: Docker CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push backend
+      uses: docker/build-push-action@v6
+      with:
+        context: ./backend
+        push: true
+        tags: srik4nth/todo-backend:latest
+
+    - name: Build and push frontend
+      uses: docker/build-push-action@v6
+      with:
+        context: ./frontend
+        push: true
+        tags: srik4nth/todo-frontend:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to Ubuntu server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        envs: ATLAS_URL
+        script: |
+          # Pull the latest images
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
+
+          # Stop and remove the old containers
+          docker stop backend-container frontend-container || true
+          docker rm backend-container frontend-container || true
+
+          # Start new containers
+          docker run -d --name backend-container \
+           -p 5001:5001 \ 
+           -e ATLAS_URL=mongodb+srv://${{ secrets.MONGO_USERNAME }}:${{ secrets.MONGO_PASSWORD }}@cluster0.ycitk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0 \
+           ${{ secrets.DOCKERHUB_USERNAME }}/mern-backend:latest
+          docker run -d --name frontend-container -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/mern-frontend:latest
+
+          # Optional: Remove unused images
+          docker image prune -f
