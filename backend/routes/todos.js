@@ -1,5 +1,6 @@
-const router = require('express').Router();
-let Todo = require('../models/todo.model');
+import express from 'express';
+import Todo from '../models/todo.model.js';
+const router = express.Router();
 
 router.route('/').get((req, res) => {
   Todo.find()
@@ -24,4 +25,4 @@ router.route('/delete/:id').delete((req, res) => {
 
 
 
-module.exports = router;
+export default router;

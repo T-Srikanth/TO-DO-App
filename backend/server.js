@@ -1,8 +1,9 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import { connect } from 'mongoose';
-import todosRouter from './routes/todos';
-// require('dotenv').config();
+import todosRouter from './routes/todos.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5001;
